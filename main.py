@@ -11,8 +11,8 @@ st.set_page_config(layout="wide")
 st.title('Analysis of your reading habits using Goodreads Data')
 
 
-user_input = st.text_input("Enter your Goodreads profile URL (eg. https://www.goodreads.com/user/show/55130422-batul-bombaywala): ",
-                           '55130422-batul-bombaywala')
+user_input = st.text_input("Enter your Goodreads profile URL: ",
+                           'https://www.goodreads.com/user/show/55130422-batul-bombaywala')
 
 user_input = user_input.split('/')[-1]
 

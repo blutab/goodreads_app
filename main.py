@@ -89,13 +89,18 @@ with col1:
     st.header('Your worst books according to average user')
     st.dataframe(rating_df.sort_values('average_rating')[:5][['title','average_rating']])
 
-    st.header('Correlation between your rating and number of pages')
+    st.header('Comparison of your rating with other users')
     fig = Figure()
     ax = fig.subplots()
-    sns.scatterplot(merged['rating'], merged['num_pages'], ax=ax)
-    ax.set_xlabel("Your Rating")
-    ax.set_ylabel("Number of pages")
+    sns.scatterplot(x=rating_df['average_rating'], y=rating_df['rating'], ax=ax)
+    ax.set_xlabel("Average Rating")
+    ax.set_ylabel("Your rating")
     st.pyplot(fig)
+    st.markdown(
+        f"""Your rating differs from an average user by **{rating_diff}** points and 
+        the book with the most difference is **{rating_df.iloc[-1]['title']}** where you rated 
+        '**{rating_df.iloc[-1]['rating']}** stars and the average rating was **{rating_df.iloc[-1]['average_rating']}** stars"""
+    )
 
 with col2:
     st.header('When were your books published')
@@ -117,18 +122,14 @@ with col2:
     ax.set_ylabel("Number of Books")
     st.pyplot(fig)
 
-    st.header('Comparison of your rating with other users')
+    st.header('Correlation between your rating and number of pages')
     fig = Figure()
     ax = fig.subplots()
-    sns.scatterplot(rating_df['average_rating'], rating_df['rating'], ax=ax)
-    ax.set_xlabel("Average Rating")
-    ax.set_ylabel("Your rating")
+    sns.scatterplot(x=merged['rating'], y=merged['num_pages'], ax=ax)
+    ax.set_xlabel("Your Rating")
+    ax.set_ylabel("Number of pages")
     st.pyplot(fig)
-    st.markdown(
-        f"""Your rating differs from an average user by **{rating_diff}** points and 
-        the book with the most difference is **{rating_df.iloc[-1]['title']}** where you rated 
-        '**{rating_df.iloc[-1]['rating']}** stars and the average rating was **{rating_df.iloc[-1]['average_rating']}** stars"""
-    )
+
 
     st.header('Your best books according to average user')
     st.dataframe(rating_df.sort_values('average_rating',ascending=False)[:5][['title','average_rating']])
